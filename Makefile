@@ -1,7 +1,7 @@
 
 #export PATH=$PATH:/opt/oss-cad-suite/bin/
 
-CONFIG ?= configs/Lattice-iCE40HX8K_BOB/config.json
+CONFIG ?= configs/Concrete/config.json
 TARGETNAME = $(shell jq -r '.name' < ${CONFIG})
 
 all: build firmware components
@@ -39,7 +39,7 @@ firmware:
 	(cd Output/${TARGETNAME}/Firmware/ ; make)
 
 components:
-	sudo halcompile --install Output/${TARGETNAME}/LinuxCNC/Components/rio.c
+	halcompile --install Output/${TARGETNAME}/LinuxCNC/Components/rio.c
 
 jsonlint: configs/*/*.json
 	@for file in $^ ; do jq < $${file} > /dev/null || echo "JSON ERROR: $${file}"; done
@@ -49,3 +49,9 @@ verilator: plugins/*/*_*.v
 
 verilatorWall: plugins/*/*_*.v
 	@for file in $^ ; do verilator --lint-only -Wall $${file}; done
+flash:
+	# add --write-flash
+	openFPGALoader --cable cmsisdap --write-flash --unprotect-flash --bitstream Output/${TARGETNAME}/Firmware/rio.bit
+
+testgui:
+	cd Output/${TARGETNAME}/Firmware/ && python3.11 qt_spitest.py 192.168.66.81
