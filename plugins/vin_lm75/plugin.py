@@ -15,13 +15,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "pins": {
                         "type": "dict",
@@ -53,7 +53,6 @@ class Plugin:
                 )
         return pinlist_out
 
-
     def vinnames(self):
         ret = []
         for num, data in enumerate(self.jdata["plugins"]):
@@ -70,7 +69,7 @@ class Plugin:
         return ret
 
     def funcs(self):
-        func_out = ["    // vin_lm75's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data.get("type") == self.ptype:
                 name = data.get("name", f"PV.{num}")

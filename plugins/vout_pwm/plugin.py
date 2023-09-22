@@ -14,13 +14,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "frequency": {
                         "type": "int",
@@ -61,7 +61,9 @@ class Plugin:
                     }
                     if "dir" in data:
                         data["pins"]["dir"] = data["dir"]
-                    print(f"WARNING: {data['type']}: please use new format for pins: '\"pins\": {data['pins']}'")
+                    print(
+                        f"WARNING: {data['type']}: please use new format for pins: '\"pins\": {data['pins']}'"
+                    )
                 pins = data["pins"]
                 if "dir" in pins:
                     pinlist_out.append((f"VOUT{num}_PWM_DIR", pins["dir"], "OUTPUT"))
@@ -80,7 +82,7 @@ class Plugin:
         return ret
 
     def defs(self):
-        func_out = ["    // vout_pwm's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data["type"] == self.ptype:
                 pins = data["pins"]
@@ -95,9 +97,8 @@ class Plugin:
                     )
         return func_out
 
-
     def funcs(self):
-        func_out = ["    // vout_pwm's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data["type"] == self.ptype:
                 name = data.get("name", f"SP.{num}")
@@ -115,7 +116,7 @@ class Plugin:
                 func_out.append(f"    vout_pwm #({divider}) vout_pwm{num} (")
                 func_out.append("        .clk (sysclk),")
                 func_out.append(f"        .dty ({nameIntern}),")
-                func_out.append(f"        .disabled (ERROR),")
+                func_out.append("        .disabled (ERROR),")
                 func_out.append(f"        .dir (VOUT{num}_PWM_DIR),")
                 if invert_pwm:
                     func_out.append(f"        .pwm (VOUT{num}_PWM_PWM_INVERTED)")

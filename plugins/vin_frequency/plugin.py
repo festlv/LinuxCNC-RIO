@@ -15,13 +15,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "pin": {
                         "type": "input",
@@ -61,18 +61,19 @@ class Plugin:
         return ret
 
     def funcs(self):
-        ret = ["    // vin_frequency's"]
+        ret = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data.get("type") == self.ptype:
                 name = data.get("name", f"PV.{num}")
                 nameIntern = name.replace(".", "").replace("-", "_").upper()
                 freq_min = int(data.get("freq_min", 10))
-                debounce = data.get("debounce", True)
-
-
+                debounce = data.get("debounce", False)
+                debounce_val = 16
                 if debounce:
+                    if debounce is not True:
+                        debounce_val = debounce
                     ret.append(f"    wire VIN{num}_FREQUENCY_DEBOUNCED;")
-                    ret.append(f"    debouncer #(16) din_debouncer{num} (")
+                    ret.append(f"    debouncer #({debounce_val}) din_debouncer{num} (")
                     ret.append("        .clk (sysclk),")
                     ret.append(f"        .SIGNAL (VIN{num}_FREQUENCY),")
                     ret.append(f"        .SIGNAL_state (VIN{num}_FREQUENCY_DEBOUNCED)")

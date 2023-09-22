@@ -14,13 +14,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "pin": {
                         "type": "output",
@@ -53,13 +53,13 @@ class Plugin:
         return ret
 
     def funcs(self):
-        func_out = ["    // vout_sinepwm's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data["type"] == self.ptype:
                 name = data.get("name", f"SP.{num}")
                 nameIntern = name.replace(".", "").replace("-", "_").upper()
-                frequency = int(data.get("frequency", 100000))
-                #divider = int(self.jdata["clock"]["speed"]) // frequency // 2
+                # frequency = int(data.get("frequency", 100000))
+                # divider = int(self.jdata["clock"]["speed"]) // frequency // 2
                 divider = 255
                 if "pins" in data:
                     pstep = 30 // len(data["pins"])
@@ -76,7 +76,9 @@ class Plugin:
 
                 else:
                     start = data.get("start", 0)
-                    func_out.append(f"    vout_sinepwm #({start}, {divider}) vout_sinepwm{num} (")
+                    func_out.append(
+                        f"    vout_sinepwm #({start}, {divider}) vout_sinepwm{num} ("
+                    )
                     func_out.append("        .clk (sysclk),")
                     func_out.append(f"        .freq ({nameIntern}),")
                     func_out.append(f"        .pwm_out (VOUT{num}_SINEPWM)")

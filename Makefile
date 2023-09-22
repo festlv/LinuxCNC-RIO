@@ -20,10 +20,10 @@ isort:
 	isort buildtool.py plugins/*/*.py
 
 flake8:
-	flake8 --max-line-length 200 buildtool.py plugins/*/*.py
+	flake8 --ignore S605 --max-line-length 200 buildtool.py plugins/*/*.py
 
 mypy:
-	mypy buildtool.py plugins/*/*.py
+	mypy buildtool.py generators/firmware/*.py plugins/*/*.py
 
 check: isort flake8 mypy
 
@@ -49,9 +49,14 @@ verilator: plugins/*/*_*.v
 
 verilatorWall: plugins/*/*_*.v
 	@for file in $^ ; do verilator --lint-only -Wall $${file}; done
+
 flash:
 	# add --write-flash
 	openFPGALoader --cable cmsisdap --write-flash --unprotect-flash --bitstream Output/${TARGETNAME}/Firmware/rio.bit
 
 testgui:
 	cd Output/${TARGETNAME}/Firmware/ && python3.11 qt_spitest.py 192.168.66.81
+
+unittest:
+	python3.9 -m pytest -vv -v tests/test_generator.py
+

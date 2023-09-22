@@ -15,13 +15,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "pins": {
                         "type": "dict",
@@ -54,7 +54,12 @@ class Plugin:
                 pullup = data.get("pullup", False)
                 if "up" in data["pins"]:
                     pinlist_out.append(
-                        (f"VIN{num}_PULSECOUNTER_UP", data["pins"]["up"], "INPUT", pullup)
+                        (
+                            f"VIN{num}_PULSECOUNTER_UP",
+                            data["pins"]["up"],
+                            "INPUT",
+                            pullup,
+                        )
                     )
                 if "down" in data["pins"]:
                     pinlist_out.append(
@@ -88,7 +93,7 @@ class Plugin:
         return ret
 
     def funcs(self):
-        func_out = ["    // vin_pulsecounter's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data.get("type") == self.ptype:
                 name = data.get("name", f"PV.{num}")

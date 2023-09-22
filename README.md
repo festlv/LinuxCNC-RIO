@@ -37,7 +37,9 @@ RealtimeIO for LinuxCNC based on an FPGA
 | vin | [pulsecounter](plugins/vin_pulsecounter) | Variable-Input for pulse counting with up to 3 pins (all optional) |
 | vin | [pwmcounter](plugins/vin_pwmcounter) | Variable-Input for pulse width measurement |
 | vin | [quadencoder](plugins/vin_quadencoder) | Variable-Input for Quad-Encoder (int32_t) |
+| vin | [quadencoderz](plugins/vin_quadencoderz) | Variable-Input for Quad-Encoder with Z-Pin (int32_t) |
 | vin | [sonar](plugins/vin_sonar) | Variable-Input for distance measurement via ultrasonic sonar sensor (HC-SR04) |
+| vin | [sonar](plugins/vin_lm75) | Variable-Input for temperature measurement via LM75 sensor |
 | vout | [frequency](plugins/vout_frequency) | Variable-Output for frequencys |
 | vout | [pwm](plugins/vout_pwm) | Variable-Output for PWM-Signals with optional DIR pin |
 | vout | [sinepwm](plugins/vout_sinepwm) | Variable-Output for Sine-Waves via PWM-Signal |
@@ -69,8 +71,8 @@ for the TangNano9K, you can also using the Gowin-IDE or Gowin-Shell (it's faster
 you can also use UDP2SPI bridge to communicate via Ethernet (UDP)
 
 * [WT32-ETH01](UDP2SPI-Bridge/WT32-ETH01)
-
 * [ESP32-PoE-ISO](UDP2SPI-Bridge/ESP32-PoE-ISO)
+* [ESP32_W5500](UDP2SPI-Bridge/ESP32_W5500)
 
 
 ## test-tool
@@ -107,25 +109,28 @@ make CONFIG=configs/TinyFPGA-BX_BOB/config.json build
 ## some demo videos
 
 ### LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB - ATC-Test
-https://www.youtube.com/shorts/G5V5OM_ORsk
+[![LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB - ATC-Test](https://img.youtube.com/vi/G5V5OM_ORsk/0.jpg)](https://www.youtube.com/shorts/G5V5OM_ORsk "LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB - ATC-Test")
 
 ### linuxcnc with tinyfpga-bx
-https://www.youtube.com/shorts/0nTmo4afwWs
+[![linuxcnc with tinyfpga-bx](https://img.youtube.com/vi/0nTmo4afwWs/0.jpg)](https://www.youtube.com/shorts/0nTmo4afwWs "linuxcnc with tinyfpga-bx")
 
 ### Mini Closed-Loop DC-Servo on LinuxCNC-RIO
-https://www.youtube.com/shorts/0cOvUS33U_s
+[![Mini Closed-Loop DC-Servo on LinuxCNC-RIO](https://img.youtube.com/vi/0cOvUS33U_s/0.jpg)](https://www.youtube.com/shorts/0cOvUS33U_s "Mini Closed-Loop DC-Servo on LinuxCNC-RIO")
 
 ### Linuxcnc RIO with ICEBreaker FPGA
-https://www.youtube.com/watch?v=58RNJSGD0qs
+[![Linuxcnc RIO with ICEBreaker FPGA](https://img.youtube.com/vi/58RNJSGD0qs/0.jpg)](https://www.youtube.com/watch?v=58RNJSGD0qs "Linuxcnc RIO with ICEBreaker FPGA")
 
 ### LinuxCNC-RIO mixed joint types (on TangNano9K - FPGA)
-https://www.youtube.com/shorts/ZfTr1BNUK_0
+[![LinuxCNC-RIO mixed joint types (on TangNano9K - FPGA)](https://img.youtube.com/vi/ZfTr1BNUK_0/0.jpg)](https://www.youtube.com/shorts/ZfTr1BNUK_0 "LinuxCNC-RIO mixed joint types (on TangNano9K - FPGA)")
 
 ### LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB
-https://www.youtube.com/watch?v=urRHtw4bcsI
+[![LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB](https://img.youtube.com/vi/urRHtw4bcsI/0.jpg)](https://www.youtube.com/watch?v=urRHtw4bcsI "LinuxCNC-RIO with TinyFPGA-BX and 5Axis BOB")
 
 ### LinuxCNC with ICE40 for stepgen
-https://www.youtube.com/shorts/m4zXuHERiFU
+[![LinuxCNC with ICE40 for stepgen](https://img.youtube.com/vi/m4zXuHERiFU/0.jpg)](https://www.youtube.com/shorts/m4zXuHERiFU "LinuxCNC with ICE40 for stepgen")
+
+### Linuxcnc RIO with Tang Nano 20k FPGA with esp32 and w5500 Ethernet
+[![Linuxcnc RIO with Tang Nano 20k FPGA with esp32 and w5500 Ethernet](https://img.youtube.com/vi/inAFxSs9Hak/0.jpg)](https://www.youtube.com/watch?v=inAFxSs9Hak "Linuxcnc RIO with Tang Nano 20k FPGA with esp32 and w5500 Ethernet")
 
 
 ---

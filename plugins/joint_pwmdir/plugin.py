@@ -72,7 +72,7 @@ class Plugin:
         return ret
 
     def funcs(self):
-        func_out = ["    // joint_pwmdir's"]
+        func_out = []
         sysclk = int(self.jdata["clock"]["speed"])
         for num, joint in enumerate(self.jdata["plugins"]):
             if joint["type"] == "joint_pwmdir":
@@ -99,7 +99,7 @@ class Plugin:
                         f"        .jointEnable (jointEnable{num} && !ERROR),"
                     )
                     func_out.append(f"        .jointFreqCmd ({nameIntern}FreqCmd),")
-                    func_out.append(f"        .jointFeedback (jointFeedbackFake),")
+                    func_out.append("        .jointFeedback (jointFeedbackFake),")
                     func_out.append(f"        .DIR (JOINT{num}_PWMDIR_DIR),")
                     func_out.append(f"        .PWM (JOINT{num}_PWMDIR_PWM)")
                     func_out.append("    );")
