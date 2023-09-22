@@ -14,13 +14,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "frequency": {
                         "type": "int",
@@ -62,7 +62,7 @@ class Plugin:
         return ret
 
     def defs(self):
-        func_out = ["    // vout_rcservo's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data["type"] == self.ptype:
                 if "dir" not in data:
@@ -76,9 +76,8 @@ class Plugin:
                     )
         return func_out
 
-
     def funcs(self):
-        func_out = ["    // vout_rcservo's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data["type"] == self.ptype:
                 name = data.get("name", f"SP.{num}")
@@ -96,7 +95,7 @@ class Plugin:
                 func_out.append(f"    vout_rcservo #({divider}) vout_rcservo{num} (")
                 func_out.append("        .clk (sysclk),")
                 func_out.append(f"        .dty ({nameIntern}),")
-                func_out.append(f"        .disabled (ERROR),")
+                func_out.append("        .disabled (ERROR),")
                 func_out.append(f"        .dir (VOUT{num}_PWM_DIR),")
                 if invert_pwm:
                     func_out.append(f"        .pwm (VOUT{num}_PWM_PWM_INVERTED)")

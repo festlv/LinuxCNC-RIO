@@ -15,13 +15,13 @@ class Plugin:
                         "type": "str",
                         "name": "pin name",
                         "comment": "the name of the pin",
-                        "default": '',
+                        "default": "",
                     },
                     "net": {
                         "type": "vtarget",
                         "name": "net target",
                         "comment": "the target net of the pin in the hal",
-                        "default": '',
+                        "default": "",
                     },
                     "pin": {
                         "type": "input",
@@ -57,7 +57,7 @@ class Plugin:
         return ret
 
     def funcs(self):
-        func_out = ["    // vin_pwmcounter's"]
+        func_out = []
         for num, data in enumerate(self.jdata["plugins"]):
             if data.get("type") == self.ptype:
                 name = data.get("name", f"PV.{num}")
